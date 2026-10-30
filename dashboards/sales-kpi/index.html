@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive Sales Dashboard: Sample</title>
+<style>
+  :root{
+    --navy:#0f2846; --navy2:#1b3a63; --ink:#1c2733; --muted:#6b7a8d;
+    --line:#e4e9f0; --bg:#f4f7fb; --card:#ffffff; --blue:#2563eb; --blue2:#3b82f6; --blue-soft:#e8eefc;
+    --amber:#e0a133; --red:#d1495b; --green:#2e9e6b; --grid:#eef2f7;
+    --shadow:0 1px 3px rgba(16,40,70,.06),0 8px 24px rgba(16,40,70,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.5}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 26px 40px}
+  .top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+  .brand{display:flex;align-items:center;gap:13px}
+  .logo{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  h1{font-size:20px;margin:0;letter-spacing:-.2px}
+  .sub{color:var(--muted);font-size:12.5px;margin-top:2px}
+  .period{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 14px;box-shadow:var(--shadow);font-size:12.5px;color:var(--muted)}
+  .period b{color:var(--ink)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:17px 18px;box-shadow:var(--shadow)}
+  .kpi .label{color:var(--muted);font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .kpi .val{font-size:27px;font-weight:700;margin:9px 0 6px;letter-spacing:-.5px}
+  .delta{font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px}
+  .up{color:var(--green);background:#e8f6ef}
+  .down{color:var(--red);background:#fbebed}
+  .delta .vs{color:var(--muted);font-weight:500;background:none;padding:0}
+  .kicon{width:30px;height:30px;border-radius:8px;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;margin-left:auto}
+  .row{display:grid;gap:16px;margin-bottom:16px}
+  .r-2{grid-template-columns:1.55fr 1fr}
+  .r-2b{grid-template-columns:1fr 1.55fr}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px;box-shadow:var(--shadow)}
+  .panel h2{font-size:14px;margin:0 0 2px;letter-spacing:-.1px}
+  .panel .cap{color:var(--muted);font-size:12px;margin:0 0 14px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;padding:0 8px 9px;border-bottom:1px solid var(--line)}
+  td{padding:11px 8px;border-bottom:1px solid var(--grid)}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .bar-cell{width:34%}
+  .minibar{height:8px;border-radius:5px;background:var(--grid);overflow:hidden}
+  .minibar span{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--navy2),var(--blue))}
+  .pill{font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:20px}
+  .pill.g{color:var(--green);background:#e8f6ef}.pill.a{color:#9a6a12;background:#fbf1dc}.pill.r{color:var(--red);background:#fbebed}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .foot{color:var(--muted);font-size:11.5px;text-align:center;margin-top:22px;line-height:1.7}
+  .foot b{color:var(--navy2)}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.r-2,.r-2b{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg>
+      </div>
+      <div>
+        <h1>Northwind Trading Co: Sales Performance</h1>
+        <div class="sub">Executive revenue dashboard, refreshed automatically from the CRM and orders sheet</div>
+      </div>
+    </div>
+    <div class="period">Period: <b>Q3 2026</b> &nbsp;·&nbsp; vs <b>Q2 2026</b> &nbsp;·&nbsp; updated <b>Sep 11</b></div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="label">Revenue
+        <span class="kicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+      </div>
+      <div class="val">$1.84M</div>
+      <span class="delta up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>12.4%</span>
+      <span class="delta vs">&nbsp;vs Q2</span>
+    </div>
+    <div class="kpi">
+      <div class="label">New Customers
+        <span class="kicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></span>
+      </div>
+      <div class="val">143</div>
+      <span class="delta up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>8.3%</span>
+      <span class="delta vs">&nbsp;vs Q2</span>
+    </div>
+    <div class="kpi">
+      <div class="label">Avg Deal Size
+        <span class="kicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+      </div>
+      <div class="val">$12,860</div>
+      <span class="delta up"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>3.8%</span>
+      <span class="delta vs">&nbsp;vs Q2</span>
+    </div>
+    <div class="kpi">
+      <div class="label">Win Rate
+        <span class="kicon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5L17 22l-5-3-5 3 1.5-8.5"/></svg></span>
+      </div>
+      <div class="val">31.6%</div>
+      <span class="delta down"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>1.9%</span>
+      <span class="delta vs">&nbsp;vs Q2</span>
+    </div>
+  </div>
+
+  <div class="row r-2">
+    <div class="panel">
+      <h2>Revenue vs Target</h2>
+      <p class="cap">Monthly closed revenue against quota, last 9 months</p>
+      <svg viewBox="0 0 640 260" width="100%" role="img" aria-label="Revenue versus target line chart">
+        <g font-size="11" fill="#9aa7b6" font-family="Inter,Arial">
+          <line x1="52" y1="30"  x2="620" y2="30"  stroke="#eef2f7"/><text x="44" y="34" text-anchor="end">$800k</text>
+          <line x1="52" y1="82"  x2="620" y2="82"  stroke="#eef2f7"/><text x="44" y="86" text-anchor="end">$600k</text>
+          <line x1="52" y1="134" x2="620" y2="134" stroke="#eef2f7"/><text x="44" y="138" text-anchor="end">$400k</text>
+          <line x1="52" y1="186" x2="620" y2="186" stroke="#eef2f7"/><text x="44" y="190" text-anchor="end">$200k</text>
+          <line x1="52" y1="216" x2="620" y2="216" stroke="#e4e9f0"/>
+        </g>
+        <polyline fill="none" stroke="#c2ccd8" stroke-width="2" stroke-dasharray="5 5"
+          points="80,150 147,150 214,140 281,140 348,128 415,128 482,116 549,116 616,104"/>
+        <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2563eb" stop-opacity=".18"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/></linearGradient></defs>
+        <polygon fill="url(#ga)" points="80,168 147,158 214,162 281,138 348,120 415,132 482,98 549,90 616,74 616,216 80,216"/>
+        <polyline fill="none" stroke="#2563eb" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"
+          points="80,168 147,158 214,162 281,138 348,120 415,132 482,98 549,90 616,74"/>
+        <g fill="#2563eb">
+          <circle cx="80" cy="168" r="3.4"/><circle cx="147" cy="158" r="3.4"/><circle cx="214" cy="162" r="3.4"/><circle cx="281" cy="138" r="3.4"/><circle cx="348" cy="120" r="3.4"/><circle cx="415" cy="132" r="3.4"/><circle cx="482" cy="98" r="3.4"/><circle cx="549" cy="90" r="3.4"/><circle cx="616" cy="74" r="4.4" stroke="#fff" stroke-width="2"/>
+        </g>
+        <g font-size="11" fill="#9aa7b6" font-family="Inter,Arial" text-anchor="middle">
+          <text x="80" y="234">Jan</text><text x="147" y="234">Feb</text><text x="214" y="234">Mar</text><text x="281" y="234">Apr</text><text x="348" y="234">May</text><text x="415" y="234">Jun</text><text x="482" y="234">Jul</text><text x="549" y="234">Aug</text><text x="616" y="234">Sep</text>
+        </g>
+      </svg>
+      <div class="legend"><span><i style="background:#2563eb"></i>Actual revenue</span><span><i style="background:#c2ccd8"></i>Target</span></div>
+    </div>
+
+    <div class="panel">
+      <h2>Pipeline by Stage</h2>
+      <p class="cap">Open opportunities, current quarter</p>
+      <svg viewBox="0 0 340 260" width="100%" role="img" aria-label="Pipeline by stage bar chart">
+        <g font-family="Inter,Arial">
+          <g font-size="12" fill="#41505f">
+            <text x="0" y="34">Lead</text><text x="0" y="82">Qualified</text><text x="0" y="130">Proposal</text><text x="0" y="178">Negotiation</text><text x="0" y="226">Closing</text>
+          </g>
+          <g fill="#eef2f7">
+            <rect x="88" y="22" width="200" height="16" rx="8"/><rect x="88" y="70" width="200" height="16" rx="8"/><rect x="88" y="118" width="200" height="16" rx="8"/><rect x="88" y="166" width="200" height="16" rx="8"/><rect x="88" y="214" width="200" height="16" rx="8"/>
+          </g>
+          <g>
+            <rect x="88" y="22"  width="200" height="16" rx="8" fill="#0f2846"/>
+            <rect x="88" y="70"  width="150" height="16" rx="8" fill="#1b3a63"/>
+            <rect x="88" y="118" width="110" height="16" rx="8" fill="#2f6aa3"/>
+            <rect x="88" y="166" width="72"  height="16" rx="8" fill="#2563eb"/>
+            <rect x="88" y="214" width="45"  height="16" rx="8" fill="#3b82f6"/>
+          </g>
+          <g font-size="11.5" font-weight="700" text-anchor="end">
+            <text x="280" y="34" fill="#ffffff">$742k</text>
+          </g>
+          <g font-size="11.5" fill="#1c2733" font-weight="600" text-anchor="start">
+            <text x="244" y="82">$556k</text><text x="204" y="130">$410k</text><text x="166" y="178">$268k</text><text x="139" y="226">$168k</text>
+          </g>
+        </g>
+      </svg>
+      <div class="legend"><span>Weighted pipeline value: <b style="color:#1c2733">$2.14M</b></span></div>
+    </div>
+  </div>
+
+  <div class="row r-2b">
+    <div class="panel">
+      <h2>Revenue by Region</h2>
+      <p class="cap">Share of Q3 revenue</p>
+      <svg viewBox="0 0 200 200" width="150" height="150" style="display:block;margin:6px auto 2px" role="img" aria-label="Revenue by region donut chart">
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#eef2f7" stroke-width="26"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#0f2846" stroke-width="26" stroke-dasharray="184.7 439.8" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#2f6aa3" stroke-width="26" stroke-dasharray="118.7 439.8" stroke-dashoffset="-184.7" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#2563eb" stroke-width="26" stroke-dasharray="83.6 439.8" stroke-dashoffset="-303.4" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#3b82f6" stroke-width="26" stroke-dasharray="52.8 439.8" stroke-dashoffset="-387" transform="rotate(-90 100 100)"/>
+        <text x="100" y="96" text-anchor="middle" font-size="13" fill="#6b7a8d" font-family="Inter,Arial">Total</text>
+        <text x="100" y="116" text-anchor="middle" font-size="18" font-weight="700" fill="#1c2733" font-family="Inter,Arial">$1.84M</text>
+      </svg>
+      <div class="legend" style="justify-content:center">
+        <span><i style="background:#0f2846"></i>West 42%</span>
+        <span><i style="background:#2f6aa3"></i>Central 27%</span>
+        <span><i style="background:#2563eb"></i>East 19%</span>
+        <span><i style="background:#3b82f6"></i>South 12%</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Top Sales Reps</h2>
+      <p class="cap">Closed revenue vs individual quota, Q3</p>
+      <table>
+        <thead><tr><th>Rep</th><th class="num">Closed</th><th class="bar-cell">Quota attainment</th><th class="num">Status</th></tr></thead>
+        <tbody>
+          <tr><td>Dana Whitfield</td><td class="num">$412k</td><td class="bar-cell"><div class="minibar"><span style="width:100%"></span></div></td><td class="num"><span class="pill g">118%</span></td></tr>
+          <tr><td>Marcus Lang</td><td class="num">$356k</td><td class="bar-cell"><div class="minibar"><span style="width:96%"></span></div></td><td class="num"><span class="pill g">104%</span></td></tr>
+          <tr><td>Priya Nair</td><td class="num">$298k</td><td class="bar-cell"><div class="minibar"><span style="width:83%"></span></div></td><td class="num"><span class="pill a">89%</span></td></tr>
+          <tr><td>Tom Alvarez</td><td class="num">$241k</td><td class="bar-cell"><div class="minibar"><span style="width:69%"></span></div></td><td class="num"><span class="pill a">74%</span></td></tr>
+          <tr><td>Grace Kim</td><td class="num">$188k</td><td class="bar-cell"><div class="minibar"><span style="width:52%"></span></div></td><td class="num"><span class="pill r">58%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Sample dashboard on demonstration data</b> &nbsp;·&nbsp; built by William Lim &nbsp;·&nbsp; figures illustrative.<br>
+    The live version refreshes automatically from your own data on a set schedule. Figures shown do not represent a real company.
+  </div>
+
+</div>
+</body>
+</html>
